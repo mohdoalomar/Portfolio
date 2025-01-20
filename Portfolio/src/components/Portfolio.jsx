@@ -10,68 +10,67 @@ import {
   Briefcase,
   BookOpen,
 } from "lucide-react";
-
+import HeroSection from "./HeroSection";
 // SkillLogo Component
 const SkillLogo = ({ imgPath, name, delay }) => {
-    return (
+  return (
+    <motion.div
+      className="flex flex-col items-center group"
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ delay: delay * 0.1 }}
+    >
       <motion.div
-        className="flex flex-col items-center group"
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ delay: delay * 0.1 }}
+        whileHover={{ scale: 1.2, rotate: 360 }}
+        transition={{ type: "spring", stiffness: 300 }}
+        className="relative w-16 h-16 md:w-20 md:h-20 mb-3 p-2"
       >
-        <motion.div
-          whileHover={{ scale: 1.2, rotate: 360 }}
-          transition={{ type: "spring", stiffness: 300 }}
-          className="relative w-16 h-16 md:w-20 md:h-20 mb-3 p-2"
-        >
-          <div className="absolute inset-0  rounded-xl filter blur-md group-hover:blur-xl transition-all duration-300" />
-          <img
-            src={imgPath}
-            alt={name}
-            className="relative w-full h-full object-contain drop-shadow-lg"
-          />
-        </motion.div>
-        <motion.span
-          initial={{ opacity: 0, y: 10 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          className="text-gray-400  text-sm font-medium group-hover:text-blue-400 transition-colors"
-        >
-          {name}
-        </motion.span>
-      </motion.div>
-    );
-  };
-  
-  // Floating Skill Component
-  const FloatingSkill = ({ imgPath, delay = 0 }) => {
-    return (
-      <motion.div
-        className="absolute w-16 h-16"
-        animate={{
-          y: [-10, 10, -10],
-        }}
-        transition={{
-          repeat: Infinity,
-          duration: 3,
-          delay: delay,
-          ease: "easeInOut"
-        }}
-      >
-        <motion.img
+        <div className="absolute inset-0  rounded-xl filter blur-md group-hover:blur-xl transition-all duration-300" />
+        <img
           src={imgPath}
-          alt="skill"
-          className="w-full h-full object-contain opacity-20 hover:opacity-40 transition-opacity duration-300 "
-          whileHover={{ scale: 1.2 }}
-          transition={{ duration: 0.2 }}
+          alt={name}
+          className="relative w-full h-full object-contain drop-shadow-lg"
         />
       </motion.div>
-    );
-  };
-  
-  const FloatingBackground = () => {
+      <motion.span
+        initial={{ opacity: 0, y: 10 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        className="text-gray-400  text-sm font-medium group-hover:text-blue-400 transition-colors"
+      >
+        {name}
+      </motion.span>
+    </motion.div>
+  );
+};
 
+// Floating Skill Component
+const FloatingSkill = ({ imgPath, delay = 0 }) => {
+  return (
+    <motion.div
+      className="absolute w-16 h-16"
+      animate={{
+        y: [-10, 10, -10],
+      }}
+      transition={{
+        repeat: Infinity,
+        duration: 3,
+        delay: delay,
+        ease: "easeInOut",
+      }}
+    >
+      <motion.img
+        src={imgPath}
+        alt="skill"
+        className="w-full h-full object-contain opacity-20 hover:opacity-40 transition-opacity duration-300 "
+        whileHover={{ scale: 1.2 }}
+        transition={{ duration: 0.2 }}
+      />
+    </motion.div>
+  );
+};
+
+const FloatingBackground = () => {
   const skills = [
     { name: "react", path: "tech/react.svg" },
     { name: "spring", path: "tech/spring.svg" },
@@ -84,23 +83,22 @@ const SkillLogo = ({ imgPath, name, delay }) => {
     { name: "sql", path: "tech/sql.svg" },
     { name: "azure", path: "tech/azure.svg" },
     { name: "tailwind", path: "tech/tailwind.svg" },
-    { name: "postman", path: "tech/postman.svg" }
+    { name: "postman", path: "tech/postman.svg" },
   ];
 
-
   const positions = [
-    { top: '5%', left: '10%' },
-    { top: '15%', left: '80%' },
-    { top: '25%', left: '15%' },
-    { top: '35%', left: '75%' },
-    { top: '45%', left: '15%' },
-    { top: '55%', left: '85%' },
-    { top: '60%', left: '30%' },
-    { top: '75%', left: '70%' },
-    { top: '85%', left: '15%' },
-    { top: '95%', left: '80%' },
-    { top: '40%', left: '45%' },
-    { top: '70%', left: '10%' }
+    { top: "5%", left: "10%" },
+    { top: "15%", left: "80%" },
+    { top: "25%", left: "15%" },
+    { top: "35%", left: "75%" },
+    { top: "45%", left: "15%" },
+    { top: "55%", left: "85%" },
+    { top: "60%", left: "30%" },
+    { top: "75%", left: "70%" },
+    { top: "85%", left: "15%" },
+    { top: "95%", left: "80%" },
+    { top: "40%", left: "45%" },
+    { top: "70%", left: "10%" },
   ];
 
   return (
@@ -114,135 +112,93 @@ const SkillLogo = ({ imgPath, name, delay }) => {
             left: positions[index].left,
           }}
         >
-          <FloatingSkill
-            imgPath={skill.path}
-            delay={index * 0.15}
-          />
+          <FloatingSkill imgPath={skill.path} delay={index * 0.15} />
         </div>
       ))}
     </div>
   );
 };
-    
-  const Portfolio = () => {
 
-    const courses = [
-      {
-        title: "React - The Complete Guide",
-        provider: "Udemy",
-        instructor: "Maximilian Schwarzmüller",
-        link: "https://www.udemy.com/course/react-the-complete-guide-incl-redux",
-        badge: "React",
-        color: "from-blue-600 to-indigo-400",
-      },
-      {
-        title: "Agile Project Management",
-        provider: "Google",
-        instructor: "Google Career Certificates",
-        link: "https://www.coursera.org/account/accomplishments/verify/4A8EMMSWHJWM",
-        badge: "Agile",
-        color: "from-indigo-400 to-purple-600",
-      },
-      {
-        title: "Data, Data Everywhere",
-        provider: "Google",
-        instructor: "Google Career Certificates",
-        link: "https://www.coursera.org/account/accomplishments/verify/S699KESORZ2A",
-        badge: "Data Analytics",
-        color: "from-blue-600 to-indigo-400",
-      },
-      {
-        title: "Spring Boot For Beginners",
-        provider: "Devtiro",
-        instructor: "Devtiro",
-        link: "https://www.youtube.com/watch?v=Nv2DERaMx-4&list=PLzUMQwCOrQTksiYqoumAQxuhPNa3HqasL&index=7",
-        badge: "Spring Boot",
-        color: "from-indigo-400 to-purple-600",
-      },
-    ];
-    const skills = [
-      { name: "React", imgPath: "tech/react.svg" },
-      { name: "Spring", imgPath: "tech/spring.svg" },
-      { name: "Docker", imgPath: "tech/docker.svg" },
-      { name: "Postman", imgPath: "tech/postman.svg" },
-      { name: "Tailwind CSS", imgPath: "tech/tailwind.svg" },
-      { name: "SQL", imgPath: "tech/sql.svg" },
-      { name: "Java", imgPath: "tech/java.svg" },
-      { name: "AWS", imgPath: "tech/aws.svg" },
-      { name: "Azure", imgPath: "tech/azure.svg" },
-      { name: "PHP", imgPath: "tech/php.svg" },
-      { name: "Git", imgPath: "tech/git.svg" },
-      { name: "Python", imgPath: "tech/python.svg" },
-    ];
-  
-    const fadeInUp = {
-      initial: { opacity: 0, y: 20 },
-      whileInView: { opacity: 1, y: 0 },
-      viewport: { once: true },
-    };
-  
-  
-  
-    // Floating skills data
-    const floatingSkills = [
-        { imgPath: "tech/react.svg", x: "10%", y: "20%", duration: 6 },
-        { imgPath: "tech/java.svg", x: "80%", y: "30%", duration: 8 },
-        { imgPath: "tech/docker.svg", x: "30%", y: "70%", duration: 7 },
-        { imgPath: "tech/python.svg", x: "70%", y: "50%", duration: 9 },
-        { imgPath: "tech/aws.svg", x: "50%", y: "10%", duration: 10 },
-        { imgPath: "tech/git.svg", x: "20%", y: "60%", duration: 5 },
-      ];
-  
-    return (
-        <div className="bg-black text-white relative min-h-screen">
-        {/* Floating Skills Background */}
-        <div className="absolute inset-0 overflow-hidden">
+const Portfolio = () => {
+  const courses = [
+    {
+      title: "React - The Complete Guide",
+      provider: "Udemy",
+      instructor: "Maximilian Schwarzmüller",
+      link: "https://www.udemy.com/course/react-the-complete-guide-incl-redux",
+      badge: "React",
+      color: "from-blue-600 to-indigo-400",
+    },
+    {
+      title: "Agile Project Management",
+      provider: "Google",
+      instructor: "Google Career Certificates",
+      link: "https://www.coursera.org/account/accomplishments/verify/4A8EMMSWHJWM",
+      badge: "Agile",
+      color: "from-indigo-400 to-purple-600",
+    },
+    {
+      title: "Data, Data Everywhere",
+      provider: "Google",
+      instructor: "Google Career Certificates",
+      link: "https://www.coursera.org/account/accomplishments/verify/S699KESORZ2A",
+      badge: "Data Analytics",
+      color: "from-blue-600 to-indigo-400",
+    },
+    {
+      title: "Spring Boot For Beginners",
+      provider: "Devtiro",
+      instructor: "Devtiro",
+      link: "https://www.youtube.com/watch?v=Nv2DERaMx-4&list=PLzUMQwCOrQTksiYqoumAQxuhPNa3HqasL&index=7",
+      badge: "Spring Boot",
+      color: "from-indigo-400 to-purple-600",
+    },
+  ];
+  const skills = [
+    { name: "React", imgPath: "tech/react.svg" },
+    { name: "Spring", imgPath: "tech/spring.svg" },
+    { name: "Docker", imgPath: "tech/docker.svg" },
+    { name: "Postman", imgPath: "tech/postman.svg" },
+    { name: "Tailwind CSS", imgPath: "tech/tailwind.svg" },
+    { name: "SQL", imgPath: "tech/sql.svg" },
+    { name: "Java", imgPath: "tech/java.svg" },
+    { name: "AWS", imgPath: "tech/aws.svg" },
+    { name: "Azure", imgPath: "tech/azure.svg" },
+    { name: "PHP", imgPath: "tech/php.svg" },
+    { name: "Git", imgPath: "tech/git.svg" },
+    { name: "Python", imgPath: "tech/python.svg" },
+  ];
+
+  const fadeInUp = {
+    initial: { opacity: 0, y: 20 },
+    whileInView: { opacity: 1, y: 0 },
+    viewport: { once: true },
+  };
+
+  // Floating skills data
+  const floatingSkills = [
+    { imgPath: "tech/react.svg", x: "10%", y: "20%", duration: 6 },
+    { imgPath: "tech/java.svg", x: "80%", y: "30%", duration: 8 },
+    { imgPath: "tech/docker.svg", x: "30%", y: "70%", duration: 7 },
+    { imgPath: "tech/python.svg", x: "70%", y: "50%", duration: 9 },
+    { imgPath: "tech/aws.svg", x: "50%", y: "10%", duration: 10 },
+    { imgPath: "tech/git.svg", x: "20%", y: "60%", duration: 5 },
+  ];
+
+  return (
+    <div className="bg-black text-white relative min-h-screen">
+      {/* Floating Skills Background */}
+      <div className="absolute inset-0 overflow-hidden">
         <FloatingBackground />
       </div>
-  
-        {/* Gradient Background */}
-        <div className="fixed inset-0 -z-20">
-          <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-600/20 rounded-full blur-3xl" />
-          <div className="absolute top-1/3 right-1/4 w-96 h-96 bg-purple-600/20 rounded-full blur-3xl" />
-          <div className="absolute bottom-1/4 left-1/3 w-96 h-96 bg-cyan-600/20 rounded-full blur-3xl" />
-        </div>
-  
-        {/* Hero Section */}
-        <section className="min-h-screen flex items-center justify-center relative px-4">
-          <motion.div
-            className="z-10 text-center space-y-8 max-w-3xl"
-            initial={{ y: 50, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ duration: 0.8 }}
-          >
-            <h1 className="text-6xl md:text-8xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-600">
-              Mohammed Alomar
-            </h1>
-            <p className="text-2xl md:text-3xl text-gray-300">
-              Software Engineer
-            </p>
-            <div className="flex justify-center gap-6">
-              <motion.a
-                href="https://www.linkedin.com/in/mohammad-al-omar-5b94421ab/"
-                target="_blank"
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.9 }}
-                className="p-3 bg-blue-600 rounded-full hover:bg-blue-700 transition-colors"
-              >
-                <Linkedin size={24} />
-              </motion.a>
-              <motion.a
-                href="https://github.com/mohdoalomar"
-                target="_blank"
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.9 }}
-                className="p-3 bg-gray-700 rounded-full hover:bg-gray-600 transition-colors"
-              >
-                <Github size={24} />
-              </motion.a>
-            </div>
-          </motion.div>
-        </section>
+
+      {/* Gradient Background */}
+      <div className="fixed inset-0 -z-20">
+        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-600/20 rounded-full blur-3xl" />
+        <div className="absolute top-1/3 right-1/4 w-96 h-96 bg-purple-600/20 rounded-full blur-3xl" />
+        <div className="absolute bottom-1/4 left-1/3 w-96 h-96 bg-cyan-600/20 rounded-full blur-3xl" />
+      </div>
+      <HeroSection />
 
       {/* About Section */}
       <motion.section className="py-20 px-4" {...fadeInUp}>
@@ -254,10 +210,10 @@ const SkillLogo = ({ imgPath, name, delay }) => {
 
           <div className="space-y-8">
             <p className="text-gray-300 leading-relaxed text-lg">
-              Passionate software engineering student at KSU with a
-              first honor GPA, I specialize in creating intuitive and
-              efficient web solutions. My expertise spans modern front-end
-              technologies and robust back-end systems.
+              Passionate software engineering student at KSU with a first honor
+              GPA, I specialize in creating intuitive and efficient web
+              solutions. My expertise spans modern front-end technologies and
+              robust back-end systems.
             </p>
             <div className="space-y-3">
               <h3 className="text-xl font-semibold text-blue-400">Education</h3>
