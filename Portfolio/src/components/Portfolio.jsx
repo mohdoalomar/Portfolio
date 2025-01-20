@@ -163,8 +163,8 @@ const Portfolio = () => {
 
           <div className="space-y-8">
             <p className="text-gray-300 leading-relaxed text-lg">
-              As a passionate software engineering student at KSU with a
-              remarkable GPA of 4.93, I specialize in creating intuitive and
+              Passionate software engineering student at KSU with a
+              first honor GPA, I specialize in creating intuitive and
               efficient web solutions. My expertise spans modern front-end
               technologies and robust back-end systems.
             </p>
