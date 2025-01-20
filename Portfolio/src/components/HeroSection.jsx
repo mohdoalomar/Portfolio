@@ -68,7 +68,7 @@ const HeroSection = () => {
               <Linkedin size={24} />
             </motion.a>
             <motion.a
-              href="https://github.com/"
+              href="https://github.com/mohdoalomar"
               target="_blank"
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
