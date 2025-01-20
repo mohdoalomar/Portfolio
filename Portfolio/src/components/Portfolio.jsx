@@ -82,16 +82,16 @@ const Portfolio = () => {
   ];
   const skills = [
     { name: "React", imgPath: "tech/react.svg" },
+    { name: "Spring", imgPath: "tech/spring.svg" },
     { name: "Docker", imgPath: "tech/docker.svg" },
     { name: "Postman", imgPath: "tech/postman.svg" },
     { name: "Tailwind CSS", imgPath: "tech/tailwind.svg" },
-    { name: "Spring", imgPath: "tech/spring.svg" },
-    { name: "AWS Lightsail", imgPath: "tech/aws.svg" },
-    { name: "Azure", imgPath: "tech/azure.svg" },
     { name: "SQL", imgPath: "tech/sql.svg" },
+    { name: "Java", imgPath: "tech/java.svg" },
+    { name: "AWS", imgPath: "tech/aws.svg" },
+    { name: "Azure", imgPath: "tech/azure.svg" },
     { name: "PHP", imgPath: "tech/php.svg" },
     { name: "Git", imgPath: "tech/git.svg" },
-    { name: "Java", imgPath: "tech/java.svg" },
     { name: "Python", imgPath: "tech/python.svg" },
   ];
 
