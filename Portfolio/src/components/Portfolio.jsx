@@ -9,10 +9,27 @@ import {
   Code,
   Briefcase,
   BookOpen,
+  Sun,
+  Moon,
 } from "lucide-react";
 import HeroSection from "./HeroSection";
+
+// Theme Toggle Component
+const ThemeToggle = ({ isDark, onToggle }) => {
+  return (
+    <button
+      onClick={onToggle}
+      className={`fixed top-4 right-4 p-3 rounded-full transition-colors z-50 ${
+        isDark ? "bg-gray-800 text-yellow-400" : "bg-white text-gray-800 shadow-lg"
+      }`}
+    >
+      {isDark ? <Sun size={20} /> : <Moon size={20} />}
+    </button>
+  );
+};
+
 // SkillLogo Component
-const SkillLogo = ({ imgPath, name, delay }) => {
+const SkillLogo = ({ imgPath, name, delay, isDark }) => {
   return (
     <motion.div
       className="flex flex-col items-center group"
@@ -26,7 +43,7 @@ const SkillLogo = ({ imgPath, name, delay }) => {
         transition={{ type: "spring", stiffness: 300 }}
         className="relative w-16 h-16 md:w-20 md:h-20 mb-3 p-2"
       >
-        <div className="absolute inset-0  rounded-xl filter blur-md group-hover:blur-xl transition-all duration-300" />
+        <div className="absolute inset-0 rounded-xl filter blur-md group-hover:blur-xl transition-all duration-300" />
         <img
           src={imgPath}
           alt={name}
@@ -36,7 +53,9 @@ const SkillLogo = ({ imgPath, name, delay }) => {
       <motion.span
         initial={{ opacity: 0, y: 10 }}
         whileInView={{ opacity: 1, y: 0 }}
-        className="text-gray-400  text-sm font-medium group-hover:text-blue-400 transition-colors"
+        className={`${
+          isDark ? "text-gray-400" : "text-gray-600"
+        } text-sm font-medium group-hover:text-blue-400 transition-colors`}
       >
         {name}
       </motion.span>
@@ -62,7 +81,7 @@ const FloatingSkill = ({ imgPath, delay = 0 }) => {
       <motion.img
         src={imgPath}
         alt="skill"
-        className="w-full h-full object-contain opacity-20 hover:opacity-40 transition-opacity duration-300 "
+        className="w-full h-full object-contain opacity-20 hover:opacity-40 transition-opacity duration-300"
         whileHover={{ scale: 1.2 }}
         transition={{ duration: 0.2 }}
       />
@@ -70,7 +89,7 @@ const FloatingSkill = ({ imgPath, delay = 0 }) => {
   );
 };
 
-const FloatingBackground = () => {
+const FloatingBackground = ({ isDark }) => {
   const skills = [
     { name: "react", path: "tech/react.svg" },
     { name: "spring", path: "tech/spring.svg" },
@@ -120,6 +139,8 @@ const FloatingBackground = () => {
 };
 
 const Portfolio = () => {
+  const [isDark, setIsDark] = useState(true);
+
   const courses = [
     {
       title: "React - The Complete Guide",
@@ -154,6 +175,7 @@ const Portfolio = () => {
       color: "from-indigo-400 to-purple-600",
     },
   ];
+
   const skills = [
     { name: "React", imgPath: "tech/react.svg" },
     { name: "Spring", imgPath: "tech/spring.svg" },
@@ -169,36 +191,68 @@ const Portfolio = () => {
     { name: "Python", imgPath: "tech/python.svg" },
   ];
 
+  const projects = [
+    {
+      title: "Tashalih",
+      description: "A platform for spare part discovery and inventory management.",
+      url: "https://tashalih.xyz",
+      tech: ["React", "Tailwind", "Django"],
+      gradient: "from-blue-800 to-blue-500",
+    },
+    {
+      title: "Lammah",
+      description: "Corporate landing page showcasing AI solutions.",
+      url: "https://lammah.ai",
+      tech: ["React", "Framer Motion", "Tailwind"],
+      gradient: "from-blue-500 to-purple-500",
+    },
+    {
+      title: "AskCommunity",
+      description: "A Stack Overflow-like Q&A platform for developers.",
+      tech: ["PHP", "MySQL", "JavaScript"],
+      gradient: "from-purple-500 to-purple-800",
+    },
+  ];
+
   const fadeInUp = {
     initial: { opacity: 0, y: 20 },
     whileInView: { opacity: 1, y: 0 },
     viewport: { once: true },
   };
 
-  // Floating skills data
-  const floatingSkills = [
-    { imgPath: "tech/react.svg", x: "10%", y: "20%", duration: 6 },
-    { imgPath: "tech/java.svg", x: "80%", y: "30%", duration: 8 },
-    { imgPath: "tech/docker.svg", x: "30%", y: "70%", duration: 7 },
-    { imgPath: "tech/python.svg", x: "70%", y: "50%", duration: 9 },
-    { imgPath: "tech/aws.svg", x: "50%", y: "10%", duration: 10 },
-    { imgPath: "tech/git.svg", x: "20%", y: "60%", duration: 5 },
-  ];
-
   return (
-    <div className="bg-black text-white relative min-h-screen">
+    <div
+      className={`min-h-screen relative transition-colors duration-300 ${
+        isDark ? "bg-black text-white" : "bg-gray-50 text-gray-900"
+      }`}
+    >
+      <ThemeToggle isDark={isDark} onToggle={() => setIsDark(!isDark)} />
+
       {/* Floating Skills Background */}
       <div className="absolute inset-0 overflow-hidden">
-        <FloatingBackground />
+        <FloatingBackground isDark={isDark} />
       </div>
 
       {/* Gradient Background */}
-      <div className="fixed inset-0 -z-20">
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-600/20 rounded-full blur-3xl" />
-        <div className="absolute top-1/3 right-1/4 w-96 h-96 bg-purple-600/20 rounded-full blur-3xl" />
-        <div className="absolute bottom-1/4 left-1/3 w-96 h-96 bg-cyan-600/20 rounded-full blur-3xl" />
+      <div className="fixed inset-0 -z-20 transition-opacity duration-300">
+        <div
+          className={`absolute top-1/4 left-1/4 w-96 h-96 rounded-full blur-3xl ${
+            isDark ? "bg-blue-600/20" : "bg-blue-400/10"
+          }`}
+        />
+        <div
+          className={`absolute top-1/3 right-1/4 w-96 h-96 rounded-full blur-3xl ${
+            isDark ? "bg-purple-600/20" : "bg-purple-400/10"
+          }`}
+        />
+        <div
+          className={`absolute bottom-1/4 left-1/3 w-96 h-96 rounded-full blur-3xl ${
+            isDark ? "bg-cyan-600/20" : "bg-cyan-400/10"
+          }`}
+        />
       </div>
-      <HeroSection />
+
+      <HeroSection isDark={isDark} />
 
       {/* About Section */}
       <motion.section className="py-20 px-4" {...fadeInUp}>
@@ -209,7 +263,11 @@ const Portfolio = () => {
           </div>
 
           <div className="space-y-8">
-            <p className="text-gray-300 leading-relaxed text-lg">
+            <p
+              className={`leading-relaxed text-lg ${
+                isDark ? "text-gray-300" : "text-gray-700"
+              }`}
+            >
               Passionate software engineering student at KSU with a first honor
               GPA, I specialize in creating intuitive and efficient web
               solutions. My expertise spans modern front-end technologies and
@@ -217,7 +275,7 @@ const Portfolio = () => {
             </p>
             <div className="space-y-3">
               <h3 className="text-xl font-semibold text-blue-400">Education</h3>
-              <div className="text-gray-300">
+              <div className={isDark ? "text-gray-300" : "text-gray-700"}>
                 <p className="font-semibold">
                   Bachelor of Software Engineering
                 </p>
@@ -227,6 +285,8 @@ const Portfolio = () => {
           </div>
         </div>
       </motion.section>
+
+      {/* Certifications Section */}
       <motion.section className="py-20 px-4" {...fadeInUp}>
         <div className="max-w-6xl mx-auto space-y-12">
           <div className="flex items-center gap-4 text-blue-400">
@@ -241,7 +301,11 @@ const Portfolio = () => {
                 target="_blank"
                 rel="noopener noreferrer"
                 key={course.title}
-                className="group relative bg-gray-900/50 rounded-xl overflow-hidden border border-gray-800 transition-all duration-300 hover:border-blue-500/50"
+                className={`group relative rounded-xl overflow-hidden border transition-all duration-300 hover:border-blue-500/50 ${
+                  isDark
+                    ? "bg-gray-900/50 border-gray-800"
+                    : "bg-white/50 border-gray-200"
+                }`}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
@@ -255,13 +319,23 @@ const Portfolio = () => {
                       <h3 className="text-xl font-bold text-blue-400 group-hover:text-blue-300 transition-colors">
                         {course.title}
                       </h3>
-                      <p className="text-gray-400 text-sm">{course.provider}</p>
+                      <p className={isDark ? "text-gray-400" : "text-gray-600"}>
+                        {course.provider}
+                      </p>
                     </div>
-                    <span className="text-xs bg-gray-800 px-3 py-1 rounded-full text-gray-300">
+                    <span
+                      className={`text-xs px-3 py-1 rounded-full ${
+                        isDark
+                          ? "bg-gray-800 text-gray-300"
+                          : "bg-gray-200 text-gray-700"
+                      }`}
+                    >
                       {course.badge}
                     </span>
                   </div>
-                  <p className="text-gray-500 text-sm">{course.instructor}</p>
+                  <p className={isDark ? "text-gray-500" : "text-gray-600"}>
+                    {course.instructor}
+                  </p>
                   <div className="flex items-center gap-2 text-blue-400 text-sm group-hover:text-blue-300 transition-colors">
                     View Certificate <ExternalLink size={14} />
                   </div>
@@ -271,8 +345,9 @@ const Portfolio = () => {
           </div>
         </div>
       </motion.section>
+
       {/* Skills Section */}
-      <motion.section className="py-20 px-4 " {...fadeInUp}>
+      <motion.section className="py-20 px-4" {...fadeInUp}>
         <div className="max-w-6xl mx-auto space-y-12">
           <div className="flex items-center gap-4 text-blue-400 justify-center">
             <Code size={24} />
@@ -285,12 +360,13 @@ const Portfolio = () => {
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
           >
-            {skills.map((skill, index) => (
+          {skills.map((skill, index) => (
               <SkillLogo
                 key={skill.name}
                 name={skill.name}
                 imgPath={skill.imgPath}
                 delay={index}
+                isDark={isDark}
               />
             ))}
           </motion.div>
@@ -306,33 +382,14 @@ const Portfolio = () => {
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {[
-              {
-                title: "Tashalih",
-                description:
-                  "A platform for spare part discovery and inventory management.",
-                url: "https://tashalih.xyz",
-                tech: ["React", "Tailwind", "Django"],
-                gradient: "from-blue-800 to-blue-500",
-              },
-              {
-                title: "Lammah",
-                description: "Corporate landing page showcasing AI solutions.",
-                url: "https://lammah.ai",
-                tech: ["React", "Framer Motion", "Tailwind"],
-                gradient: "from-blue-500 to-purple-500",
-              },
-              {
-                title: "AskCommunity",
-                description:
-                  "A Stack Overflow-like Q&A platform for developers.",
-                tech: ["PHP", "MySQL", "JavaScript"],
-                gradient: "from-purple-500 to-purple-800",
-              },
-            ].map((project, index) => (
+            {projects.map((project, index) => (
               <motion.div
                 key={project.title}
-                className="group relative bg-gray-900/50 rounded-xl overflow-hidden border border-gray-800"
+                className={`group relative rounded-xl overflow-hidden border transition-all duration-300 ${
+                  isDark 
+                    ? "bg-gray-900/50 border-gray-800" 
+                    : "bg-white/50 border-gray-200"
+                }`}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
@@ -344,12 +401,18 @@ const Portfolio = () => {
                   <h3 className="text-2xl font-bold text-blue-400">
                     {project.title}
                   </h3>
-                  <p className="text-gray-400">{project.description}</p>
+                  <p className={isDark ? "text-gray-400" : "text-gray-600"}>
+                    {project.description}
+                  </p>
                   <div className="flex flex-wrap gap-2">
                     {project.tech.map((tech) => (
                       <span
                         key={tech}
-                        className="text-sm bg-gray-800 px-3 py-1 rounded-full text-gray-300"
+                        className={`text-sm px-3 py-1 rounded-full ${
+                          isDark
+                            ? "bg-gray-800 text-gray-300"
+                            : "bg-gray-200 text-gray-700"
+                        }`}
                       >
                         {tech}
                       </span>
@@ -359,6 +422,7 @@ const Portfolio = () => {
                     <motion.a
                       href={project.url}
                       target="_blank"
+                      rel="noopener noreferrer"
                       className="inline-flex items-center gap-2 text-blue-400 hover:text-blue-300"
                       whileHover={{ x: 5 }}
                     >
@@ -374,33 +438,47 @@ const Portfolio = () => {
 
       {/* Contact Section */}
       <motion.section className="py-20 px-4" {...fadeInUp}>
-        <div className="max-w-4xl mx-auto space-y-12 p-8 rounded-2xl backdrop-blur-sm bg-white/5 border border-white/10">
+        <div
+          className={`max-w-4xl mx-auto space-y-12 p-8 rounded-2xl backdrop-blur-sm border transition-colors duration-300 ${
+            isDark 
+              ? "bg-white/5 border-white/10" 
+              : "bg-white/50 border-gray-200"
+          }`}
+        >
           <div className="flex items-center gap-4 text-blue-400">
             <Mail size={24} />
             <h2 className="text-3xl font-bold">Get in Touch</h2>
           </div>
 
           <div className="space-y-6">
-            <div className="flex items-center gap-4 text-gray-300">
+            <div className="flex items-center gap-4">
               <Mail className="text-blue-400" size={24} />
-              <p>mohdoalomar@gmail.com</p>
+              <p className={isDark ? "text-gray-300" : "text-gray-700"}>
+                mohdoalomar@gmail.com
+              </p>
             </div>
-            <div className="flex items-center gap-4 text-gray-300">
+            <div className="flex items-center gap-4">
               <Linkedin className="text-blue-400" size={24} />
               <a
                 href="https://www.linkedin.com/in/mohammad-al-omar-5b94421ab/"
                 target="_blank"
-                className="hover:text-blue-400 transition-colors"
+                rel="noopener noreferrer"
+                className={`${
+                  isDark ? "text-gray-300" : "text-gray-700"
+                } hover:text-blue-400 transition-colors`}
               >
                 Mohammad Al-Omar
               </a>
             </div>
-            <div className="flex items-center gap-4 text-gray-300">
+            <div className="flex items-center gap-4">
               <Github className="text-blue-400" size={24} />
               <a
                 href="https://github.com/mohdoalomar"
                 target="_blank"
-                className="hover:text-blue-400 transition-colors"
+                rel="noopener noreferrer"
+                className={`${
+                  isDark ? "text-gray-300" : "text-gray-700"
+                } hover:text-blue-400 transition-colors`}
               >
                 GitHub
               </a>
