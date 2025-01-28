@@ -13,7 +13,7 @@ import {
   Moon,
 } from "lucide-react";
 import HeroSection from "./HeroSection";
-
+import ProjectSlider from './ProjectSlider';
 // Theme Toggle Component
 const ThemeToggle = ({ isDark, onToggle }) => {
   return (
@@ -174,6 +174,22 @@ const Portfolio = () => {
       badge: "Spring Boot",
       color: "from-indigo-400 to-purple-600",
     },
+    {
+      title: "Python Functions, Files, and Dictionaries",
+      provider: "University of Michigan",
+      instructor: "Coursera",
+      link: "https://coursera.org/share/b8a57c363efb7c0b7b6ffa73b79f2b7b",
+      badge: "Python",
+      color: "from-blue-600 to-indigo-400",
+    },
+    {
+      title: "Foundations of Project Management",
+      provider: "Google",
+      instructor: "Google Career Certificates",
+      link: "https://coursera.org/share/2b771ad84c11888d70460540830a1921",
+      badge: "Project Management",
+      color: "from-indigo-400 to-purple-600",
+    },
   ];
 
   const skills = [
@@ -212,8 +228,13 @@ const Portfolio = () => {
       tech: ["PHP", "MySQL", "JavaScript"],
       gradient: "from-purple-500 to-purple-800",
     },
+    {
+      title: "Tweet Sentiment Analysis",
+      description: "Developed a Python-based sentiment analysis tool for analyzing Twitter data, classifying tweets into positive or negative, using Natural Language Processing techniques.",
+      tech: ["Python", "Data Analysis"],
+      gradient: "from-cyan-500 to-blue-500",
+    },
   ];
-
   const fadeInUp = {
     initial: { opacity: 0, y: 20 },
     whileInView: { opacity: 1, y: 0 },
@@ -374,67 +395,15 @@ const Portfolio = () => {
       </motion.section>
 
       {/* Projects Section */}
-      <motion.section className="py-20 px-4" {...fadeInUp}>
-        <div className="max-w-6xl mx-auto space-y-12">
-          <div className="flex items-center gap-4 text-blue-400">
-            <Briefcase size={24} />
-            <h2 className="text-3xl font-bold">Projects</h2>
-          </div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {projects.map((project, index) => (
-              <motion.div
-                key={project.title}
-                className={`group relative rounded-xl overflow-hidden border transition-all duration-300 ${
-                  isDark 
-                    ? "bg-gray-900/50 border-gray-800" 
-                    : "bg-white/50 border-gray-200"
-                }`}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-                whileHover={{ scale: 1.02 }}
-              >
-                <div className={`h-2 bg-gradient-to-r ${project.gradient}`} />
-                <div className="p-6 space-y-4">
-                  <h3 className="text-2xl font-bold text-blue-400">
-                    {project.title}
-                  </h3>
-                  <p className={isDark ? "text-gray-400" : "text-gray-600"}>
-                    {project.description}
-                  </p>
-                  <div className="flex flex-wrap gap-2">
-                    {project.tech.map((tech) => (
-                      <span
-                        key={tech}
-                        className={`text-sm px-3 py-1 rounded-full ${
-                          isDark
-                            ? "bg-gray-800 text-gray-300"
-                            : "bg-gray-200 text-gray-700"
-                        }`}
-                      >
-                        {tech}
-                      </span>
-                    ))}
-                  </div>
-                  {project.url && (
-                    <motion.a
-                      href={project.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 text-blue-400 hover:text-blue-300"
-                      whileHover={{ x: 5 }}
-                    >
-                      Visit Site <ExternalLink size={16} />
-                    </motion.a>
-                  )}
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </motion.section>
+<motion.section className="py-20 px-4" {...fadeInUp}>
+  <div className="max-w-6xl mx-auto space-y-12">
+    <div className="flex items-center gap-4 text-blue-400">
+      <Briefcase size={24} />
+      <h2 className="text-3xl font-bold">Projects</h2>
+    </div>
+    <ProjectSlider projects={projects} isDark={isDark} />
+  </div>
+</motion.section>
 
       {/* Contact Section */}
       <motion.section className="py-20 px-4" {...fadeInUp}>
