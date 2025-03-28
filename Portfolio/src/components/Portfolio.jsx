@@ -218,7 +218,7 @@ const Portfolio = () => {
     {
       title: "Lammah",
       description: "Corporate landing page showcasing AI solutions.",
-      url: "https://lammah.ai",
+      url: "https://mohdoalomar.github.io/LammahAI/",
       tech: ["React", "Framer Motion", "Tailwind"],
       gradient: "from-blue-500 to-purple-500",
     },
